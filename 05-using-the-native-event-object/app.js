@@ -8,11 +8,11 @@ const app = Vue.createApp({
 		};
 	},
 	watch: {
-    // Watchers are good for HTTP requests e.g. setting timers
+		// Watchers are good for HTTP requests e.g. setting timers
 		counter(value) {
 			if (value > 50) {
-				const that = this;
-				setTimeout(function () { // Reset value with 2s timeout
+				setTimeout(() => {
+					// Reset value with 2s timeout
 					that.counter = 0;
 				}, 2000);
 			}
