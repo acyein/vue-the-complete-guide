@@ -1,25 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vue Basics</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="styles.css" />
-    <script src="https://unpkg.com/vue@next" defer></script>
-    <script src="app.js" defer></script>
-  </head>
-  <body>
-    <header>
-      <h1>Vue Dynamic Styling</h1>
-    </header>
-    <section id="styling">
-      <div class="demo"></div>
-      <div class="demo"></div>
-      <div class="demo"></div>
-    </section>
-  </body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Vue Basics</title>
+		<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap" rel="stylesheet" />
+		<link rel="stylesheet" href="styles.css" />
+		<script src="https://unpkg.com/vue@3.4.9/dist/vue.global.js" defer></script>
+		<script src="app.js" defer></script>
+	</head>
+	<body>
+		<header>
+			<h1>Vue Dynamic Styling</h1>
+		</header>
+		<section id="styling">
+			<!-- <div class="demo" @click="boxSelected('A')"></div> -->
+
+			<!-- Inline style -->
+			<!-- <div class="demo" :style="{borderColor: red}" @click="boxSelected('A')"></div> -->
+
+			<!-- Works but not the most legible -->
+			<!-- <div :class="boxASelected ? 'demo active' : 'demo'" @click="boxSelected('A')"></div> -->
+
+			<!-- A better way: add 'active' class when boxASelected is truthy -->
+			<!-- <div :class="{demo: true, active: boxASelected}" @click="boxSelected('A')"></div> -->
+
+			<!-- An even better way: hardcode 'demo' class since we always want it to appear -->
+			<!-- <div class="demo" :class="{active: boxASelected}" @click="boxSelected('A')"></div> -->
+			<div class="demo" :class="{active: boxBSelected}" @click="boxSelected('B')"></div>
+			<div class="demo" :class="{active: boxCSelected}" @click="boxSelected('C')"></div>
+
+			<!-- If you have more complex/conditional classes, place them in computed properties -->
+			<!-- <div class="demo" :class="boxAClasses" @click="boxSelected('A')"></div> -->
+
+			<!-- Another option -->
+			<div :class="['demo', {active: boxASelected}]" @click="boxSelected('A')"></div>
+		</section>
+	</body>
 </html>
