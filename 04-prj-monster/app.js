@@ -9,6 +9,7 @@ const app = Vue.createApp({
       monsterHealth: 100,
       currentRound: 0,
       winner: null,
+      logMessages: [],
     };
   },
   computed: {
@@ -57,6 +58,7 @@ const app = Vue.createApp({
       this.monsterHealth = 100;
       this.currentRound = 0;
       this.winner = null;
+      this.logMessages = [];
     },
     attackMonster() {
       this.currentRound++;
@@ -65,6 +67,9 @@ const app = Vue.createApp({
       const attackValue = getRandomValue(5, 12);
       this.monsterHealth -= attackValue; //  OR this.monsterHealth = this.monsterHealth - attackValue;
 
+      // Add log message
+      this.addLogMessage("player", "attack", attackValue);
+
       // Execute this function right after
       this.attackPlayer();
     },
@@ -72,12 +77,14 @@ const app = Vue.createApp({
     attackPlayer() {
       const attackValue = getRandomValue(8, 15);
       this.playerHealth -= attackValue;
+      this.addLogMessage("monster", "attack", attackValue);
     },
     // Special attack only available after every 3 rounds
     specialAttackMonster() {
       this.currentRound++;
       const attackValue = getRandomValue(10, 25);
       this.monsterHealth -= attackValue;
+      this.addLogMessage("player", "attack", attackValue);
       this.attackPlayer();
     },
     healPlayer() {
@@ -89,6 +96,7 @@ const app = Vue.createApp({
       } else {
         this.playerHealth += healValue;
       }
+      this.addLogMessage("player", "heal", healValue);
 
       // Monster still attacks player while healing
       this.attackPlayer();
@@ -96,6 +104,13 @@ const app = Vue.createApp({
     surrender() {
       // That means the monster wins
       this.winner = "monster";
+    },
+    addLogMessage(who, what, value) {
+      this.logMessages.unshift({
+        actionBy: who,
+        actionType: what,
+        actionValue: value,
+      });
     },
   },
 });
