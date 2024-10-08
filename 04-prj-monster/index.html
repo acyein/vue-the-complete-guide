@@ -33,7 +33,7 @@
         <button @click="attackMonster">ATTACK</button>
         <!-- Disabled if currentRound is not divisible by 3 -->
         <button :disabled="mayUseSpecialAttack" @click="specialAttackMonster">SPECIAL ATTACK</button>
-        <button>HEAL</button>
+        <button @click="healPlayer">HEAL</button>
         <button>SURRENDER</button>
       </section>
       <section id="log" class="container">

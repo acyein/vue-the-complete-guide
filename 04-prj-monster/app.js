@@ -34,7 +34,7 @@ const app = Vue.createApp({
     },
     // When player attacks monster, monster attacks back
     attackPlayer() {
-      const attackValue = getRandomValue(8, 12);
+      const attackValue = getRandomValue(8, 15);
       this.playerHealth -= attackValue;
     },
     // Special attack only available after every 3 rounds
@@ -42,6 +42,19 @@ const app = Vue.createApp({
       this.currentRound++;
       const attackValue = getRandomValue(10, 25);
       this.monsterHealth -= attackValue;
+      this.attackPlayer();
+    },
+    healPlayer() {
+      this.currentRound++;
+      const healValue = getRandomValue(8, 20);
+      // If health is above 100, set value to 100 (to ensure value doesn't go beyond 100)
+      if (this.playerHealth + healValue > 100) {
+        this.playerHealth = 100;
+      } else {
+        this.playerHealth += healValue;
+      }
+
+      // Monster still attacks player while healing
       this.attackPlayer();
     },
   },
